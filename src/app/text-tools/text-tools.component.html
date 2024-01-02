@@ -1,0 +1,61 @@
+<h5>Input Text</h5>
+<div class="input-group">
+  <textarea class="form-control" aria-label="Text" [(ngModel)]="text" (ngModelChange)="textUpdated()"></textarea>
+</div>
+<span class="badge bg-primary">Characters: {{textLength}}</span>
+<span class="badge bg-primary">Words: {{textWords}}</span>
+<span class="badge bg-primary">Lines: {{textLines}}</span>
+<span class="badge bg-primary">Sentences: {{textSentences}}</span>
+<span class="badge bg-primary">Paragraphs: {{textParagraphs}}</span>
+<br class="mb-4" />
+<h5>Reverse</h5>
+<div class="input-group mb-2">
+  <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textReverse"></textarea>
+  <button class="btn btn-outline-secondary" (click)="copyToClipboard(textReverse)">Copy</button>
+</div>
+<h5>MarkDown Escape <span class="description">Avoid MarkDown formatting for places such as Discord</span></h5>
+<div class="input-group mb-2">
+  <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textEscapeMarkdown"></textarea>
+  <button class="btn btn-outline-secondary" (click)="copyToClipboard(textEscapeMarkdown)">Copy</button>
+</div>
+
+<div class="card card-body">
+  <button type="button" class="btn btn-primary" aria-controls="caseCollaple" (click)="collapseCases = !collapseCases;">
+    Text Case
+  </button>
+
+  <div [ngbCollapse]="collapseCases" id="caseCollaple">
+    <div class="mb-2"></div>
+
+    <h5>Upper-case</h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textUppercase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textUppercase)">Copy</button>
+    </div>
+    <h5>Lower-case</h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textLowercase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textLowercase)">Copy</button>
+    </div>
+    <h5>Title-case <span class="description">Capitalize the start of every word</span></h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textTitlecase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textTitlecase)">Copy</button>
+    </div>
+    <h5>Swap-case <span class="description">Upper-case to lower-case, lower-case to upper-case</span></h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textSwapcase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textSwapcase)">Copy</button>
+    </div>
+    <h5>Alternating-case <span class="description">Alternate between lower-case and upper-case</span></h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textAlternatingcase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textAlternatingcase)">Copy</button>
+    </div>
+    <h5>Mock-case <span class="description">Like alternating-case but with some formatting <span class="hidden">(to absolutely mentally destroy your opponents)</span></span></h5>
+    <div class="input-group">
+      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textMockcase"></textarea>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textMockcase)">Copy</button>
+    </div>
+  </div>
+</div>
