@@ -17,3 +17,27 @@
     color: rgba(0, 0, 0, 0);
     font-size: small;
 }
+
+.copy-button {
+    transition: 0.3s;
+}
+
+.show-copied-dark {
+    .copy-button {
+        color: #00ff00;
+        background-color: #002000;
+        border-color: #00ff00;
+    
+        transition: 0.2s;
+    }
+}
+
+.show-copied-light {
+    .copy-button {
+        color: #002000;
+        background-color: #00ff00;
+        border-color: #002000;
+    
+        transition: 0.2s;
+    }
+}
