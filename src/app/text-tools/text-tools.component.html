@@ -2,22 +2,15 @@
 <div class="input-group">
   <textarea class="form-control" aria-label="Text" [(ngModel)]="text" (ngModelChange)="textUpdated()"></textarea>
 </div>
+
 <span class="badge bg-primary">Characters: {{textLength}}</span>
 <span class="badge bg-primary">Words: {{textWords}}</span>
 <span class="badge bg-primary">Lines: {{textLines}}</span>
 <span class="badge bg-primary">Sentences: {{textSentences}}</span>
 <span class="badge bg-primary">Paragraphs: {{textParagraphs}}</span>
 <br class="mb-4" />
-<h5>Reverse</h5>
-<div class="input-group mb-2">
-  <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textReverse"></textarea>
-  <button class="btn btn-outline-secondary" (click)="copyToClipboard(textReverse)">Copy</button>
-</div>
-<h5>MarkDown Escape <span class="description">Avoid MarkDown formatting for places such as Discord</span></h5>
-<div class="input-group mb-2">
-  <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textEscapeMarkdown"></textarea>
-  <button class="btn btn-outline-secondary" (click)="copyToClipboard(textEscapeMarkdown)">Copy</button>
-</div>
+<app-output-textarea [title]="'Reverse'" [text]="textReverse" />
+<app-output-textarea [title]="'MarkDown Escape'" [text]="textEscapeMarkdown" [description]="'Avoid MarkDown formatting for places such as Discord'" />
 
 <div class="card card-body">
   <button type="button" class="btn btn-outline-primary" aria-controls="caseCollaple" (click)="collapseCases = !collapseCases;">
@@ -27,35 +20,11 @@
   <div [ngbCollapse]="collapseCases" id="caseCollaple">
     <div class="mb-2"></div>
 
-    <h5>Upper-case</h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textUppercase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textUppercase)">Copy</button>
-    </div>
-    <h5>Lower-case</h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textLowercase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textLowercase)">Copy</button>
-    </div>
-    <h5>Title-case <span class="description">Capitalize the start of every word</span></h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textTitlecase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textTitlecase)">Copy</button>
-    </div>
-    <h5>Swap-case <span class="description">Upper-case to lower-case, lower-case to upper-case</span></h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textSwapcase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textSwapcase)">Copy</button>
-    </div>
-    <h5>Alternating-case <span class="description">Alternate between lower-case and upper-case</span></h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textAlternatingcase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textAlternatingcase)">Copy</button>
-    </div>
-    <h5>Mock-case <span class="description">Like alternating-case but with some formatting <span class="hidden">(to absolutely mentally destroy your opponents)</span></span></h5>
-    <div class="input-group">
-      <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="textMockcase"></textarea>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(textMockcase)">Copy</button>
-    </div>
+    <app-output-textarea [title]="'Upper-case'" [text]="textUppercase" />
+    <app-output-textarea [title]="'Lower-case'" [text]="textLowercase" />
+    <app-output-textarea [title]="'Title-case'" [text]="textTitlecase" [description]="'Capitalize the start of every word'" />
+    <app-output-textarea [title]="'Swap-case'" [text]="textSwapcase" [description]="'Upper-case to lower-case, lower-case to upper-case'" />
+    <app-output-textarea [title]="'Alternating-case'" [text]="textAlternatingcase" [description]="'Alternate between lower-case and upper-case'" />
+    <app-output-textarea [title]="'Mock-case'" [text]="textMockcase" [description]="'Like alternating-case but with some formatting'" [hiddenText]="'(to absolutely mentally destroy your opponents)'" />
   </div>
 </div>

@@ -1,16 +1,24 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemeSwitcherService } from '../theme-switcher/theme-switcher.service';
+import { OutputTextareaComponent } from './output-textarea/output-textarea.component';
 
 @Component({
   selector: 'app-text-tools',
   standalone: true,
-  imports: [FormsModule, NgbModule],
+  imports: [FormsModule, NgbModule, CommonModule, OutputTextareaComponent],
   templateUrl: './text-tools.component.html',
   styleUrl: './text-tools.component.scss'
 })
 export class TextToolsComponent {
+  constructor(private themeSwitcher: ThemeSwitcherService) {
+
+  }
+
   text: string = '';
+  showCopiedToast: boolean = false;
 
   collapseCases: boolean = true;
 
@@ -30,9 +38,10 @@ export class TextToolsComponent {
   textAlternatingcase: string = '';
   textMockcase: string = '';
 
-  copyToClipboard(text: string) {
-    navigator.clipboard.writeText(text).then(function() {
+  copyToClipboard(this: TextToolsComponent, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
       console.log('Copying to clipboard was successful!');
+      this.showCopiedToast = true;
     }, function(err) {
       console.error('Could not copy text: ', err);
     });
@@ -105,6 +114,14 @@ export class TextToolsComponent {
 
       output += text[i];
     }
+
+    output = `"${output}"`
+
+    const emojis:string[] = ['💀']
+
+    do {
+      output += emojis[Math.floor(Math.random() * emojis.length)];
+    } while (Math.random() < 0.5);
 
     return output;
   }

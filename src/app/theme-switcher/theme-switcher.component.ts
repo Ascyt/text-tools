@@ -1,5 +1,6 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ThemeSwitcherService } from './theme-switcher.service';
 
 import { Component, EventEmitter, Output } from '@angular/core';
 
@@ -13,7 +14,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class ThemeSwitcherComponent {
   @Output() themeChanged = new EventEmitter<boolean>();
 
+  constructor(public themeSwitcher: ThemeSwitcherService) {}
+
   toggleTheme() {
+    this.themeSwitcher.toggleTheme();
     this.themeChanged.emit();
   }
 }

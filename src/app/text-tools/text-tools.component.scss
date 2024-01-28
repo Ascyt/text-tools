@@ -13,24 +13,6 @@ textarea:focus {
     margin-right: 3px;
 }
 
-.readonly-textarea {
-    background-color: var(--back-mid);
-}
-.readonly-textarea:focus {
-    outline: none;
-    background-color: var(--back-mid);
-}
-
-.description {
-    color: var(--front-low);
-    font-size: medium;
-    font-style: italic;
-}
-.hidden {
-    color: rgba(0, 0, 0, 0);
-    font-size: small;
-}
-
 .card-body {
     background-color: var(--back-high);
 }

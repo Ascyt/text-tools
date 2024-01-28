@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, RouterModule, RouterLinkActive } from '@angular/router';
 import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemeSwitcherService } from './theme-switcher/theme-switcher.service';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +13,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isLightTheme:boolean = false;
-  themeSwitchCounter:number = 0;
-
-  constructor(public router:Router) {
+  constructor(public router:Router, private themeSwitcher:ThemeSwitcherService) {
     this.updateTheme();
   }
 
   toggleTheme() {
-    this.isLightTheme = !this.isLightTheme;
     this.updateTheme();
-    this.themeSwitchCounter++;
   }
   updateTheme() {
-    switch (this.themeSwitchCounter) { // ignore this
+    switch (this.themeSwitcher.themeSwitchCounter) { // ignore this
       case 10:
         alert('bro stop')
         break;
@@ -56,11 +52,11 @@ export class AppComponent {
         return;
       case 100:
         alert('fine. you win. i\'ll fix it.')
-        this.themeSwitchCounter = 0;
+        this.themeSwitcher.themeSwitchCounter = 0;
         break;
-    } if (this.themeSwitchCounter > 50) return;
+    } if (this.themeSwitcher.themeSwitchCounter > 50) return;
 
 
-    document.body.className = this.isLightTheme ? 'light-theme' : 'dark-theme';
+    document.body.className = this.themeSwitcher.isLightTheme ? 'light-theme' : 'dark-theme';
   }
 }

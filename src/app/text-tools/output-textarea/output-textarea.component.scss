@@ -1,0 +1,19 @@
+.readonly-textarea {
+    color: var(--front);
+    background-color: var(--back-mid);
+}
+.readonly-textarea:focus {
+    outline: none;
+    background-color: var(--back-mid);
+}
+
+.description {
+    color: var(--front-low);
+    font-size: medium;
+    font-style: italic;
+}
+
+.hidden {
+    color: rgba(0, 0, 0, 0);
+    font-size: small;
+}
