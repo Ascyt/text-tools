@@ -17,6 +17,9 @@ export class OutputTextareaComponent {
 
   showCopiedToast: boolean = false;
 
+  copyButtonText: string = 'Copy';
+  copiedTextAnimation: string[] = ['Copy', 'Copie', 'Copied', 'Copied!']
+
   constructor(public themeSwitcher: ThemeSwitcherService) {
 
   }
@@ -26,11 +29,38 @@ export class OutputTextareaComponent {
       console.log('Copying to clipboard was successful!');
 
       this.showCopiedToast = true;
+      this.toCopiedText(1);
+
       setTimeout(() => {
         this.showCopiedToast = false;
-      }, 1000);
+        this.toCopiedTextReverse(this.copiedTextAnimation.length - 2);
+      }, 2000);
     }, function(err) {
       console.error('Could not copy text: ', err);
     });
+  }
+
+  toCopiedText(currentIndex: number) {
+    this.copyButtonText = this.copiedTextAnimation[currentIndex];
+
+    if (currentIndex < this.copiedTextAnimation.length - 1) {
+      setTimeout(() => {
+        this.toCopiedText(currentIndex + 1);
+      }, 25);
+    } else {
+      this.copyButtonText = this.copiedTextAnimation[this.copiedTextAnimation.length - 1];
+    }
+  }
+
+  toCopiedTextReverse(currentIndex: number) {
+    this.copyButtonText = this.copiedTextAnimation[currentIndex];
+
+    if (currentIndex > 0) {
+      setTimeout(() => {
+        this.toCopiedTextReverse(currentIndex - 1);
+      }, 33);
+    } else {
+      this.copyButtonText = this.copiedTextAnimation[0];
+    }
   }
 }

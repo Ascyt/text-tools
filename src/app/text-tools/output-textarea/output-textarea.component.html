@@ -2,6 +2,6 @@
     <h5>{{title}}<span *ngIf="description">&nbsp;<span class="description">{{description}}<span *ngIf="hiddenText" class="hidden">&nbsp;{{hiddenText}}</span></span></span></h5>
     <div class="input-group">
         <textarea class="form-control readonly-textarea" [readOnly]="true" [value]="text"></textarea>
-        <button class="btn btn-outline-secondary copy-button" (click)="copyToClipboard()" [disabled]="showCopiedToast">{{showCopiedToast ? 'Copied!' : 'Copy'}}</button>
+        <button class="btn btn-outline-secondary copy-button" (click)="copyToClipboard()" [disabled]="showCopiedToast">{{copyButtonText}}</button>
     </div>
 </div> 
