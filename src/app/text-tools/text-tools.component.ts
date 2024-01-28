@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeSwitcherService } from '../theme-switcher/theme-switcher.service';
 import { OutputTextareaComponent } from './output-textarea/output-textarea.component';
+import { SHA256 } from 'crypto-js';
 
 @Component({
   selector: 'app-text-tools',
@@ -30,6 +31,7 @@ export class TextToolsComponent {
   
   textReverse: string = '';
   textEscapeMarkdown: string = '';
+  textSha256: string = '';
 
   textUppercase: string = '';
   textLowercase: string = '';
@@ -60,6 +62,8 @@ export class TextToolsComponent {
       .join('');
 
     this.textEscapeMarkdown = this.getMarkdownEscape(this.text);
+
+    this.textSha256 = SHA256(this.text).toString();
 
     this.textUppercase = this.text.toLocaleUpperCase();
     this.textLowercase = this.text.toLocaleLowerCase();
