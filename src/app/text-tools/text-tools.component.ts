@@ -22,6 +22,7 @@ export class TextToolsComponent {
   showCopiedToast: boolean = false;
 
   collapseCases: boolean = true;
+  collapseOther: boolean = true;
 
   textLength: number = 0;
   textWords: number = 0;
@@ -39,6 +40,8 @@ export class TextToolsComponent {
   textSwapcase: string = '';
   textAlternatingcase: string = '';
   textMockcase: string = '';
+
+  textDiscordMessagePagination: string = '';
 
   copyToClipboard(this: TextToolsComponent, text: string) {
     navigator.clipboard.writeText(text).then(() => {
@@ -77,6 +80,8 @@ export class TextToolsComponent {
       return i % 2 ? txt.toLocaleLowerCase() : txt.toLocaleUpperCase();
     });
     this.textMockcase = this.getTextMockcase(this.text);
+
+    this.textDiscordMessagePagination = this.getDiscordMessagePagination(this.text);
   }
 
   getMarkdownEscape(text:string):string {
@@ -125,8 +130,50 @@ export class TextToolsComponent {
 
     do {
       output += emojis[Math.floor(Math.random() * emojis.length)];
-    } while (Math.random() < 0.5);
+    } while (Math.random() < 0.75);
 
     return output;
+  }
+  
+  getDiscordMessagePagination(text:string):string {
+    const lines:string[] = text.split('\n').map(line => line.trim());
+
+    if (lines.length === 0) {
+      return '';
+    }
+
+    let outputLines:string[] = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      let paginationParts:string[] = [];
+
+      // First message and left message
+      if (i === 0) {
+        paginationParts.push(`|←`);
+        paginationParts.push(`←`);
+      }
+      else {
+        paginationParts.push(`[|←](<${lines[0]}>)`);
+        paginationParts.push(`[←](<${lines[i - 1]}>)`);
+      }
+
+      // Current message and count
+      let currentPageIndexFormatted:string = `${i + 1}`.padStart(`${lines.length}`.length, '0');
+      paginationParts.push(`\`${currentPageIndexFormatted}/${lines.length}\``);
+
+      // Last message and right message
+      if (i === lines.length - 1) {
+        paginationParts.push(`→`);
+        paginationParts.push(`→|`);
+      }
+      else {
+        paginationParts.push(`[→](<${lines[i + 1]}>)`);
+        paginationParts.push(`[→|](<${lines[lines.length - 1]})`);
+      }
+
+      outputLines.push(`-# **${paginationParts.join("  ")}**`);
+    }
+
+    return outputLines.join('\n');
   }
 }

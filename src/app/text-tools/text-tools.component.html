@@ -14,7 +14,7 @@
 <app-output-textarea [title]="'SHA-256'" [text]="textSha256" [description]="'SHA-256 irreversable hash'"/>
 <div class="mb-2"></div>
 
-<div class="card card-body">
+<div class="card card-body mb-2">
   <button type="button" class="btn btn-outline-primary" aria-controls="caseCollaple" (click)="collapseCases = !collapseCases;">
     Text Case
   </button>
@@ -28,5 +28,17 @@
     <app-output-textarea [title]="'Swap-case'" [text]="textSwapcase" [description]="'Upper-case to lower-case, lower-case to upper-case'" />
     <app-output-textarea [title]="'Alternating-case'" [text]="textAlternatingcase" [description]="'Alternate between lower-case and upper-case'" />
     <app-output-textarea [title]="'Mock-case'" [text]="textMockcase" [description]="'Like alternating-case but with some formatting'" [hiddenText]="'(to absolutely mentally destroy your opponents)'" />
+  </div>
+</div>
+
+<div class="card card-body">
+  <button type="button" class="btn btn-outline-primary" aria-controls="caseCollaple" (click)="collapseOther = !collapseOther;">
+    Other Tools
+  </button>
+
+  <div [ngbCollapse]="collapseOther" id="caseCollaple">
+    <div class="mb-2"></div>
+    
+    <app-output-textarea [title]="'Discord Message Pagination'" [text]="textDiscordMessagePagination" [description]="'Input Discord message links (seperated by line-breaks) and get pagination, that you can edit into the end of each message.'" />
   </div>
 </div>
