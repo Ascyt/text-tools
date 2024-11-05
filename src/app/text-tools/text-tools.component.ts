@@ -85,7 +85,7 @@ export class TextToolsComponent {
   }
 
   getMarkdownEscape(text:string):string {
-    const markdownSpecialCharacters:string[] = ['\\', '*', '_', '`', '[', ']', '(', ')', '#', '+', '-', '.', '!'];
+    const markdownSpecialCharacters:string[] = ['\\', '*', '_', '`', '[', ']', '(', ')', '#', '+', '-', '.', '!', ':'];
 
     for (let i = 0; i < markdownSpecialCharacters.length; i++) {
       text = text.replace(new RegExp('\\' + markdownSpecialCharacters[i], 'g'), '\\' + markdownSpecialCharacters[i]);
