@@ -136,7 +136,7 @@ export class TextToolsComponent {
   }
   
   getDiscordMessagePagination(text:string):string {
-    const lines:string[] = text.split('\n').map(line => line.trim());
+    const lines:string[] = text.trim().split('\n').map(line => line.trim());
 
     if (lines.length === 0) {
       return '';
@@ -161,7 +161,7 @@ export class TextToolsComponent {
       let currentPageIndexFormatted:string = `${i + 1}`.padStart(`${lines.length}`.length, '0');
       paginationParts.push(`\`${currentPageIndexFormatted}/${lines.length}\``);
 
-      // Last message and right message
+      // Right message and last message
       if (i === lines.length - 1) {
         paginationParts.push(`→`);
         paginationParts.push(`→|`);
