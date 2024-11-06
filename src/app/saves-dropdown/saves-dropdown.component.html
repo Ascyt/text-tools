@@ -21,7 +21,7 @@
         [ngClass]="{
         'btn btn-sm btn-outline-secondary margin-right': true
         }"(click)="onEditSaveNameStart()">
-        Edit<i class="bi bi-pencil"></i>
+        <i class="bi bi-pencil"></i>
     </button>  
   
     <!-- Collection name input field -->
@@ -32,13 +32,13 @@
         [ngClass]="{
         'btn btn-sm btn-success margin-right': true
         }"(click)="onEditSaveNameSave()">
-        Apply<i class="bi bi-check"></i>
+        <i class="bi bi-check"></i>
     </button>
     <button *ngIf="isEditingSaveName" type="button" 
         [ngClass]="{
         'btn btn-sm btn-danger margin-right': true
         }"(click)="onEditSaveNameCancel()">
-        Cancel<i class="bi bi-x"></i>
+        <i class="bi bi-x"></i>
     </button>
 
     <!-- Delete button -->
@@ -47,6 +47,6 @@
         'btn btn-sm btn-outline-danger': true,
         'disabled': deleteDisabled
         }"(click)="onDeleteSave()">
-        Delete<i class="bi bi-trash"></i>
+        <i class="bi bi-trash"></i>
     </button>
 </div>
