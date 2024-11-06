@@ -11,5 +11,27 @@ export class SavesService {
     return this.saves.find(save => save.id === this.currentSaveId);
   }
 
-  constructor() { }
+  constructor() {
+    //this.saves = JSON.parse(localStorage.getItem('saves') || '[]');
+    this.saves = [
+      {
+        id: 0,
+        name: 'Save 1',
+        text: 'This is the first save.',
+        date: new Date()
+      },
+      {
+        id: 1,
+        name: 'Save 2',
+        text: 'This is the second save.',
+        date: new Date()
+      },
+      {
+        id: 2,
+        name: 'Save 3',
+        text: 'This is the third save.',
+        date: new Date()
+      }
+    ];
+  }
 }

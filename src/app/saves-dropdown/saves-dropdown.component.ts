@@ -1,11 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SavesService } from '../saves/saves.service';
 import { Save } from '../saves/save';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-saves-dropdown',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, NgbModule],
   templateUrl: './saves-dropdown.component.html',
   styleUrl: './saves-dropdown.component.scss'
 })
@@ -17,12 +20,14 @@ export class SavesDropdownComponent {
   }
 
   public currentSaveName:string = "";
+  public isEditingSaveName:boolean = false;
 
   public constructor(public savesService:SavesService) {}
 
   
   onEditSaveNameStart():void {
     this.currentSaveName = this.savesService.currentSave!.name;
+    this.isEditingSaveName = true;
 
     // run in next frame
     setTimeout(() => {
@@ -32,10 +37,12 @@ export class SavesDropdownComponent {
 
   onEditSaveNameSave():void {
     this.savesService.currentSave!.name = this.currentSaveName;
+    this.isEditingSaveName = false;
   }
 
   onEditSaveNameCancel():void {
     this.currentSaveName = this.savesService.currentSave!.name;
+    this.isEditingSaveName = false;
   }
 
   onEnterKeydown():void {
@@ -63,5 +70,18 @@ export class SavesDropdownComponent {
       date: new Date()
     });
     this.savesService.currentSaveId = this.savesService.saves.length - 1;
+  }
+
+  onDeleteSave():void {
+    if (this.savesService.saves.length <= 1) {
+      return;
+    }
+
+    this.savesService.saves.splice(this.savesService.currentSaveId, 1);
+
+    this.savesService.currentSaveId--;
+    if (this.savesService.currentSaveId < 0) {
+      this.savesService.currentSaveId = 0;
+    }
   }
 }
