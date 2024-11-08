@@ -123,7 +123,7 @@ export class SavesDropdownComponent {
       text: "",
       date: new Date()
     });
-    this.savesService.currentSaveId = this.savesService.saves.length - 1;
+    this.savesService.currentSaveId = newId;
     this.savesService.saveAll();
   }
 
