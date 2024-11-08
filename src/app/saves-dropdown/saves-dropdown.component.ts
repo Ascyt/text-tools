@@ -146,10 +146,7 @@ export class SavesDropdownComponent {
 
     this.savesService.saves.splice(this.savesService.currentSaveId, 1);
 
-    this.savesService.currentSaveId--;
-    if (this.savesService.currentSaveId < 0) {
-      this.savesService.currentSaveId = 0;
-    }
+    this.savesService.currentSaveId = this.savesService.saves[this.savesService.saves.length - 1].id;
 
     this.savesService.saveAll();
   }
