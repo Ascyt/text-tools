@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeSwitcherService } from '../theme-switcher/theme-switcher.service';
 import { OutputTextareaComponent } from './output-textarea/output-textarea.component';
 import { SHA256 } from 'crypto-js';
+import { SavesService } from '../saves/saves.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-text-tools',
@@ -13,12 +15,32 @@ import { SHA256 } from 'crypto-js';
   templateUrl: './text-tools.component.html',
   styleUrl: './text-tools.component.scss'
 })
-export class TextToolsComponent {
-  constructor(private themeSwitcher: ThemeSwitcherService) {
-
+export class TextToolsComponent implements OnInit, OnDestroy {
+  constructor(private themeSwitcher: ThemeSwitcherService, private savesService: SavesService) {
+    
   }
 
-  text: string = '';
+  public get text(): string {
+    return this.savesService.currentSave?.text || '';
+  }
+  public set text(value: string) {
+    this.savesService.currentSave!.text = value;
+    this.savesService.saveAll();
+    this.textUpdated();
+  }
+  private saveIdChangeSubscription: Subscription|undefined;
+
+  ngOnInit(): void {
+    this.saveIdChangeSubscription = this.savesService.currentSaveId$.subscribe(id => {
+      this.textUpdated();
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.saveIdChangeSubscription !== undefined) {
+      this.saveIdChangeSubscription.unsubscribe(); // Clean up the subscription
+    }
+  }
+
   showCopiedToast: boolean = false;
 
   collapseCases: boolean = true;

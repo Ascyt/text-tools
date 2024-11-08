@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Save } from './save';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,16 @@ export class SavesService {
   }
   public set currentSaveId(value: number) {
     this._currentSaveId = value;
+    this.saveIdSubject.next(value); // Notify subscribers of the change
   }
 
   public get currentSave(): Save|undefined {
     return this.saves.find(save => save.id === this.currentSaveId);
+  }  
+  private saveIdSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this._currentSaveId);
+
+  public get currentSaveId$(): Observable<number> {
+    return this.saveIdSubject.asObservable();
   }
 
   constructor() {
