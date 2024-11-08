@@ -1,0 +1,52 @@
+<div class="d-flex align-items-center">
+    <!-- Dropdown -->
+    <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary margin-right" id="dropdownBasic" ngbDropdownToggle>
+            {{ savesService.currentSave!.name }}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="dropdown-menu">
+        <button *ngFor="let item of savesService.saves" class="dropdown-item" 
+                [class.active]="item === savesService.currentSave" 
+                (click)="onSelectSave(item)">
+            {{ item.name }}
+        </button>
+
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem (click)="onCreateSave()" class="dropdown-item-addnew">New Save</button>
+        </div>
+    </div>
+  
+    <!-- Edit collection name button -->
+    <button *ngIf="!isEditingSaveName" type="button" 
+        [ngClass]="{
+        'btn btn-sm btn-outline-secondary margin-right': true
+        }"(click)="onEditSaveNameStart()">
+        <i class="bi bi-pencil"></i>
+    </button>  
+  
+    <!-- Collection name input field -->
+    <input *ngIf="isEditingSaveName" type="text" #valueInputAnswer class="form-control form-control-sm d-inline-block margin-right" [(ngModel)]="currentSaveName" placeholder="Answer" (keydown.enter)="onEnterKeydown()" (keydown.escape)="onEscapeKeydown()" />
+
+    <!-- Save and cancel buttons -->
+    <button *ngIf="isEditingSaveName" type="button" 
+        [ngClass]="{
+        'btn btn-sm btn-success margin-right': true
+        }"(click)="onEditSaveNameSave()">
+        <i class="bi bi-check"></i>
+    </button>
+    <button *ngIf="isEditingSaveName" type="button" 
+        [ngClass]="{
+        'btn btn-sm btn-danger margin-right': true
+        }"(click)="onEditSaveNameCancel()">
+        <i class="bi bi-x"></i>
+    </button>
+
+    <!-- Delete button -->
+    <button type="button" 
+        [ngClass]="{
+        'btn btn-sm btn-outline-danger': true,
+        'disabled': deleteDisabled
+        }"(click)="onDeleteSave()">
+        <i class="bi bi-trash"></i>
+    </button>
+</div>
