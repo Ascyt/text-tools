@@ -19,7 +19,7 @@ export class SavesService {
   }
 
   constructor() {
-    this.loadSaves();
+    this.loadAll();
     
     if (this.saves.length === 0) {
       this.saves = [
@@ -33,11 +33,13 @@ export class SavesService {
     }
   }
 
-  loadSaves() {
+  loadAll() {
     this.saves = JSON.parse(localStorage.getItem('saves') || '[]');
+    this.currentSaveId = Number(JSON.parse(localStorage.getItem('currentSaveId') || '0'));
   }
 
-  saveSaves() {
+  saveAll() {
     localStorage.setItem('saves', JSON.stringify(this.saves));
+    localStorage.setItem('currentSaveId', JSON.stringify(this.currentSaveId));
   }
 }

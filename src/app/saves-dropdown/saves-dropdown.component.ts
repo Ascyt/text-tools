@@ -23,7 +23,6 @@ export class SavesDropdownComponent {
   public isEditingSaveName:boolean = false;
 
   public constructor(public savesService:SavesService) {}
-
   
   onEditSaveNameStart():void {
     this.currentSaveName = this.savesService.currentSave!.name;
@@ -37,11 +36,14 @@ export class SavesDropdownComponent {
 
   onEditSaveNameSave():void {
     this.savesService.currentSave!.name = this.currentSaveName;
+    this.savesService.saveAll();
+
     this.isEditingSaveName = false;
   }
 
   onEditSaveNameCancel():void {
     this.currentSaveName = this.savesService.currentSave!.name;
+    this.savesService.saveAll();
     this.isEditingSaveName = false;
   }
 
@@ -60,6 +62,7 @@ export class SavesDropdownComponent {
 
   onSelectSave(save:Save):void {
     this.savesService.currentSaveId = save.id;
+    this.savesService.saveAll();
   }
 
   onCreateSave():void {
@@ -70,6 +73,7 @@ export class SavesDropdownComponent {
       date: new Date()
     });
     this.savesService.currentSaveId = this.savesService.saves.length - 1;
+    this.savesService.saveAll();
   }
 
   onDeleteSave():void {
@@ -83,5 +87,7 @@ export class SavesDropdownComponent {
     if (this.savesService.currentSaveId < 0) {
       this.savesService.currentSaveId = 0;
     }
+
+    this.savesService.saveAll();
   }
 }
