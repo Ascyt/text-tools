@@ -131,7 +131,6 @@ export class SavesDropdownComponent {
       text: "",
       date: new Date()
     });
-    console.log(this.savesService.saves);
     this.savesService.currentSaveId = newId;
     this.savesService.saveAll();
   }
