@@ -60,7 +60,9 @@ export class SavesDropdownComponent {
     this.currentHoverButton = event.target ?? undefined;
   }
   onElementMouseLeave(event:MouseEvent):void {
-    this.currentHoverButton = undefined;
+    if (this.currentHoverButton === event.target) {
+      this.currentHoverButton = undefined;
+    }
   }
   
   onEditSaveNameStart():void {
@@ -70,6 +72,7 @@ export class SavesDropdownComponent {
     // run in next frame
     setTimeout(() => {
       this.saveNameInput?.nativeElement.focus();
+      this.saveNameInput?.nativeElement.setSelectionRange(0, this.currentSaveName.length);
     });
   }
 
@@ -100,11 +103,17 @@ export class SavesDropdownComponent {
   }
 
   onSelectSave(save:Save):void {
+    if (this.isEditingSaveName)
+      this.onEditSaveNameCancel();
+
     this.savesService.currentSaveId = save.id;
     this.savesService.saveAll();
   }
 
   onCreateSave():void {
+    if (this.isEditingSaveName)
+      this.onEditSaveNameCancel();
+
     this.savesService.saves.push({
       id: this.savesService.saves.length,
       name: "New Save",
@@ -116,6 +125,9 @@ export class SavesDropdownComponent {
   }
 
   onDeleteSave():void {
+    if (this.isEditingSaveName)
+      this.onEditSaveNameCancel();
+    
     if (this.savesService.saves.length <= 1) {
       return;
     }

@@ -12,14 +12,16 @@
         <button *ngFor="let item of savesService.saves" class="dropdown-item" 
                 [class.active]="item === savesService.currentSave" 
                 (click)="onSelectSave(item)"
-                (mouseenter)="onElementMouseEnter($event)">
+                (mouseenter)="onElementMouseEnter($event)"
+                (mouseleave)="onElementMouseLeave($event)">
             {{ item.name }}
         </button>
 
         <div class="dropdown-divider"></div>
         <button ngbDropdownItem class="dropdown-item-addnew" 
         (click)="onCreateSave()"
-        (mouseenter)="onElementMouseEnter($event)">New Save</button>
+        (mouseenter)="onElementMouseEnter($event)"
+        (mouseleave)="onElementMouseLeave($event)">New Save</button>
         </div>
     </div>
   
@@ -32,7 +34,7 @@
     </button>  
   
     <!-- Collection name input field -->
-    <input *ngIf="isEditingSaveName" type="text" #valueInputAnswer class="form-control form-control-sm d-inline-block margin-right" [(ngModel)]="currentSaveName" placeholder="Answer" (keydown.enter)="onEnterKeydown()" (keydown.escape)="onEscapeKeydown()" />
+    <input *ngIf="isEditingSaveName" type="text" #saveNameInput class="form-control form-control-sm d-inline-block margin-right" [(ngModel)]="currentSaveName" placeholder="Answer" (keydown.enter)="onEnterKeydown()" (keydown.escape)="onEscapeKeydown()" />
 
     <!-- Save and cancel buttons -->
     <button *ngIf="isEditingSaveName" type="button" 
