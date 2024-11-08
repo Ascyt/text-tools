@@ -4,6 +4,7 @@ import { Save } from '../saves/save';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-saves-dropdown',
@@ -114,8 +115,10 @@ export class SavesDropdownComponent {
     if (this.isEditingSaveName)
       this.onEditSaveNameCancel();
 
+    const newId = this.savesService.saves.map(s => s.id).reduce((a, b) => Math.max(a, b), 0) + 1;
+
     this.savesService.saves.push({
-      id: this.savesService.saves.length,
+      id: newId,
       name: "New Save",
       text: "",
       date: new Date()
@@ -127,7 +130,7 @@ export class SavesDropdownComponent {
   onDeleteSave():void {
     if (this.isEditingSaveName)
       this.onEditSaveNameCancel();
-    
+
     if (this.savesService.saves.length <= 1) {
       return;
     }
