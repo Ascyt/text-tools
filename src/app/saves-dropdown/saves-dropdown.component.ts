@@ -25,6 +25,7 @@ export class SavesDropdownComponent {
   public isEditingSaveName:boolean = false;
   private dropdownMouseDown:boolean = false;
   private dropdownMouseLeave:boolean = false;
+  private hasDropdownFinished:boolean = true;
 
   private currentHoverButton:EventTarget|undefined = undefined;
 
@@ -32,11 +33,17 @@ export class SavesDropdownComponent {
 
   onDropdownMouseDown(event:MouseEvent):void {
     this.dropdownMouseDown = true;
+    this.hasDropdownFinished = false;
   }
   onDropdownMouseUp(event:MouseEvent):void {
   }
   @HostListener('document:mouseup', ['$event'])
-  onMouseDown(event:MouseEvent):void {
+  onMouseUp(event:MouseEvent):void {
+    if (this.hasDropdownFinished) {
+      return;
+    }
+    this.hasDropdownFinished = true;
+
     if (this.dropdownMouseLeave && this.currentHoverButton !== undefined) {
       (this.currentHoverButton as HTMLElement).click();
     }
