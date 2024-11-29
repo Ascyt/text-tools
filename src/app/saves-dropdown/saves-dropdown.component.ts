@@ -25,7 +25,6 @@ export class SavesDropdownComponent {
   public isEditingSaveName:boolean = false;
   private dropdownMouseDown:boolean = false;
   private dropdownMouseLeave:boolean = false;
-  private dropdownMouseHasEntered:boolean = false;
 
   private currentHoverButton:EventTarget|undefined = undefined;
 
@@ -35,13 +34,9 @@ export class SavesDropdownComponent {
     this.dropdownMouseDown = true;
   }
   onDropdownMouseUp(event:MouseEvent):void {
-    this.dropdownMouseHasEntered = false;
   }
   @HostListener('document:mouseup', ['$event'])
   onMouseDown(event:MouseEvent):void {
-    if (!this.dropdownMouseHasEntered)
-      return;
-
     if (this.dropdownMouseLeave && this.currentHoverButton !== undefined) {
       (this.currentHoverButton as HTMLElement).click();
     }
@@ -60,9 +55,6 @@ export class SavesDropdownComponent {
   }
   onDropdownMouseEnter(event:MouseEvent):void {
     this.dropdownMouseLeave = false;
-    
-    if (this.dropdownMouseDown) 
-      this.dropdownMouseHasEntered = true;
   }
 
   onElementMouseEnter(event:MouseEvent):void {
@@ -125,9 +117,16 @@ export class SavesDropdownComponent {
 
     const newId = this.savesService.saves.map(s => s.id).reduce((a, b) => Math.max(a, b), 0) + 1;
 
+    let name:string = 'New Save';
+    let nameIndex:number = 1;
+    while (this.savesService.saves.some(s => s.name === name)) {
+      name = `New Save ${nameIndex + 1}`;
+      nameIndex++;
+    }
+
     this.savesService.saves.push({
       id: newId,
-      name: "New Save",
+      name: name,
       text: "",
       date: new Date()
     });
