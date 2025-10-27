@@ -54,6 +54,7 @@ export class TextToolsComponent implements OnInit, OnDestroy {
   
   textReverse: string = '';
   textEscapeMarkdown: string = '';
+  textEscapeJson: string = '';
   textSha256: string = '';
 
   textUppercase: string = '';
@@ -87,6 +88,7 @@ export class TextToolsComponent implements OnInit, OnDestroy {
       .join('');
 
     this.textEscapeMarkdown = this.getMarkdownEscape(this.text);
+    this.textEscapeJson = this.getJsonEscape(this.text);
 
     this.textSha256 = SHA256(this.text).toString();
 
@@ -114,6 +116,15 @@ export class TextToolsComponent implements OnInit, OnDestroy {
     }
 
     return text;
+  }
+
+  getJsonEscape(text:string):string {
+    return text
+      .replace(/\\/g, '\\\\')
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '')
+      .replace(/\t/g, '\\t');
   }
 
   getTextMockcase(text:string):string {
